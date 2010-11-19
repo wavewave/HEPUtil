@@ -1,0 +1,17 @@
+Name:		HEPUtil
+Version:	0.0
+Synopsis:	Useful functions for HEP
+Description: 	Collection of useful functions for High Energy Physics project   
+License: 	BSD3
+License-file:	LICENSE
+Author:		Ian-Woo Kim
+Maintainer: 	Ian-Woo Kim <ianwookim@gmail.com>
+Build-Depends:	base>4, hmatrix
+Build-Type: 	Simple
+
+hs-source-dirs: src
+ghc-options: 	-Wall -O2 -threaded -funbox-strict-fields -fno-warn-unused-do-bind
+ghc-prof-options: -caf-all -auto-all
+
+Exposed-Modules: 
+		 HEP.Util.Functions
