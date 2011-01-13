@@ -6,7 +6,7 @@ License: 	BSD3
 License-file:	LICENSE
 Author:		Ian-Woo Kim
 Maintainer: 	Ian-Woo Kim <ianwookim@gmail.com>
-Build-Depends:	base>4, hmatrix, iteratee-util, mtl
+Build-Depends:	base>4, hmatrix, iteratee>0.4, iteratee-util, mtl, LHCOAnalysis>=0.4.4
 Build-Type: 	Simple
 
 hs-source-dirs: src
