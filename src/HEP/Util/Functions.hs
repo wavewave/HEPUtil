@@ -156,3 +156,8 @@ cosTH i v1 v2 = let vsum = v1 + v2
 
 xsecConvGeV2Pb :: Double -> Double 
 xsecConvGeV2Pb gev = gev * 3.894e8
+
+
+alphaStoGS :: Double -> Double 
+alphaStoGS alphas = sqrt ( 4.0 * pi * alphas )  
+  
