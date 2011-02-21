@@ -1,12 +1,12 @@
 Name:		HEPUtil
-Version:	0.0.3
+Version:	0.0.3.1
 Synopsis:	Useful functions for HEP
 Description: 	Collection of useful functions for High Energy Physics project   
 License: 	BSD3
 License-file:	LICENSE
 Author:		Ian-Woo Kim
 Maintainer: 	Ian-Woo Kim <ianwookim@gmail.com>
-Build-Depends:	base>4, hmatrix, iteratee>0.4, iteratee-util, mtl, LHCOAnalysis>=0.4.4
+Build-Depends:	base>4, hmatrix, iteratee>0.4, iteratee-util, mtl >2, LHCOAnalysis>=0.4.4
 Build-Type: 	Simple
 
 hs-source-dirs: src
