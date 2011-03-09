@@ -16,6 +16,7 @@ neg (t1,x1,y1,z1) = ((-t1),(-x1),(-y1),(-z1))
 subtract :: FourMomentum -> FourMomentum -> FourMomentum 
 subtract p1 p2 = plus p1 (neg p2) 
   
+sqr x = x*x
 
 energy :: (Double,Double,Double,Double) -> Double
 energy (a,_,_,_) = a
