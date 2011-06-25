@@ -6,7 +6,7 @@ import Control.Monad.State
 import Data.Iteratee as Iter
 import Data.Iteratee.Util
 
-import LHCOAnalysis
+import HEP.Parser.LHCOAnalysis
 
 type CounterT = StateT Int 
 
