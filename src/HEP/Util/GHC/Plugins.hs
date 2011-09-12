@@ -1,6 +1,6 @@
 module HEP.Util.GHC.Plugins where
 
--- import Control.Monad.IO.Class
+import Control.Monad.IO.Class
 import GHC 
 import GHC.Paths
 import DynFlags
@@ -32,10 +32,10 @@ pluginCompile basedir mname exp =
       r <- load LoadAllTargets 
       case r of 
         Failed -> do 
---          liftIO (putStrLn "Compilation Failed")
+          -- putStrLn "Compilation Failed"
           return (Left "Compilation Failed") 
         Succeeded -> do 
---          liftIO (putStrLn "Compilation Successed")
+          -- putStrLn "Compilation Successed"
           m <- findModule (mkModuleName mname) Nothing
           setContext [] [(m,Nothing)]
           value <- compileExpr exp 

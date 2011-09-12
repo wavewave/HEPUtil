@@ -7,7 +7,7 @@ License-file:	LICENSE
 Author:		Ian-Woo Kim
 Maintainer: 	Ian-Woo Kim <ianwookim@gmail.com>
 Build-Depends:	base>4, iteratee>0.4, iteratee-util, mtl >2, LHCOAnalysis>=0.4.4, hmatrixIW, 
-                ghc, ghc-paths, filepath, split, parsec
+                ghc, ghc-paths, filepath, split, parsec, transformers > 0.2.2
 -- , transformers
 -- hmatrix > 0.11,
 Build-Type: 	Simple
