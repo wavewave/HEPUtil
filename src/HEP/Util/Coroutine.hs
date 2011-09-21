@@ -3,8 +3,8 @@
 -- |
 -- This is a code snippet from http://random.axman6.com/blog/?p=231
 --
+-- A coroutine monad.
 
--- | A co-routine monad.
 module HEP.Util.Coroutine (
         CoroutineT(runCoroutineT),
         Result(..),
