@@ -1,7 +1,62 @@
 {-# LANGUAGE BangPatterns #-}
 
-module HEP.Util.Functions where
+module HEP.Util.Functions 
+  ( 
+  -- * Some missing mathematical functions and useful functions
+    sqr
+  , cot
+  , csc
+  , fst3
+  , snd3
+  , trd3 
+ 
+  -- * Four-momentum and basic operation
+  , FourMomentum
+  , energy
+  , px 
+  , py
+  , pz 
+  , plus
+  , neg
+  , subtract
+  , dot4
+  , sqr4
+  , mom_2_pt_eta_phi
+  , fourmomfrometaphipt
 
+  -- * Angle dependent function
+  , etatocosth
+  , costhtoeta
+  , deltaR
+
+  -- * Invariant Mass 
+  , invmasssqr
+  , invmasssqr0
+  , invmass
+  , invmass0 
+
+  -- * Lorentz Transformation 
+  , LorentzRotation
+  , LorentzVector
+  , Vector3
+  , fourMomentumToLorentzVector
+  , vector3 
+  , beta 
+  , boost 
+  , toRest
+  , cosangle3
+  , cosangle
+  , cosTH
+
+  -- * Cross section conversion
+  , xsecConvGeV2Pb
+
+  -- * alpha_S conversion
+  , alphaStoGS
+
+  ) where
+
+import Prelude hiding (subtract)
 import Numeric.LinearAlgebra
 
 -- | FourMomentum is a type synonym of (E,px,py,pz)
@@ -15,7 +70,8 @@ neg (t1,x1,y1,z1) = ((-t1),(-x1),(-y1),(-z1))
 
 subtract :: FourMomentum -> FourMomentum -> FourMomentum 
 subtract p1 p2 = plus p1 (neg p2) 
-  
+
+sqr :: (Num a) => a -> a   
 sqr x = x*x
 
 energy :: (Double,Double,Double,Double) -> Double
@@ -52,13 +108,14 @@ costhtoeta !costh =  0.5 * log ( ( 1 + costh ) / ( 1 - costh ) )
 
 
 mom_2_pt_eta_phi :: FourMomentum -> (Double,Double,Double)
-mom_2_pt_eta_phi (!t,!x,!y,!z) = 
-  let pt = sqrt $ x^2 + y^2
-      costh = z / ( sqrt $ x^2 + y^2 + z^2 )
+mom_2_pt_eta_phi (_,!x,!y,!z) = 
+  let pt = sqrt $ x^(2::Int) + y^(2::Int)
+      costh = z / ( sqrt $ x^(2::Int) + y^(2::Int) + z^(2::Int) )
       phi = atan $ y / x 
   in (pt, costhtoeta costh, phi ) 
 
-deltaR (!pt1,!eta1,!phi1) (!pt2,!eta2,!phi2) = sqrt $ (eta1-eta2)^2 + (phi1-phi2)^2 
+deltaR :: (Double,Double,Double) -> (Double,Double,Double) -> Double
+deltaR (_,!eta1,!phi1) (_,!eta2,!phi2) = sqrt $ (eta1-eta2)^(2::Int) + (phi1-phi2)^(2::Int) 
 
 fst3 :: (a,b,c) -> a
 fst3 (a,_,_) = a
@@ -87,12 +144,14 @@ invmasssqr :: FourMomentum -> FourMomentum -> Double
 invmasssqr !mom1 !mom2 = dot4 mom1 mom1 + dot4 mom2 mom2 
                          + invmasssqr0 mom1 mom2
 
+-- | for massless particle
 invmasssqr0 :: FourMomentum -> FourMomentum -> Double
 invmasssqr0 !mom1 !mom2 = 2.0 * dot4 mom1 mom2
 
 invmass :: FourMomentum -> FourMomentum -> Double
 invmass !mom1 !mom2 = sqrt $! invmasssqr mom1 mom2
 
+-- | for massless particle 
 invmass0 :: FourMomentum -> FourMomentum -> Double
 invmass0 !mom1 !mom2 = sqrt $! invmasssqr0 mom1 mom2
 
@@ -103,13 +162,14 @@ type LorentzRotation = Matrix Double
 
 type LorentzVector = Vector Double
 
+fourMomentumToLorentzVector :: FourMomentum -> LorentzVector 
 fourMomentumToLorentzVector (v0,v1,v2,v3) = 4 |> [v0,v1,v2,v3]
 
 type Vector3 = Vector Double
 
 vector3 :: LorentzVector -> Vector3
 vector3 v = 3 |> [v1,v2,v3]
-    where [v0,v1,v2,v3] = toList v
+    where [_,v1,v2,v3] = toList v
 
 beta  :: LorentzVector -> Vector3
 beta v = 3 |> [b1,b2,b3]
@@ -129,7 +189,7 @@ boost b = (4><4) [ ga    , -bx*ga           , -by*ga           , -bz*ga
           b2 = bx*bx+by*by+bz*bz
           ga = 1 / sqrt (1-b2)
 
-
+toRest :: LorentzVector -> LorentzRotation
 toRest = boost . beta 
 
 
@@ -144,13 +204,13 @@ cosangle v1 v2 = cosangle3 (vector3 v1) (vector3 v2)
 data EvenOdd = Even | Odd 
 
 cosTH :: EvenOdd -> LorentzVector -> LorentzVector -> Double 
-cosTH i v1 v2 = let vsum = v1 + v2
+cosTH n v1 v2 = let vsum = v1 + v2
                     torestsum = toRest vsum
                     restv1 = torestsum <> v1
                     restv2 = torestsum <> v2
                     cosTH1 = cosangle vsum restv1
                     cosTH2 = cosangle vsum restv2 
-                in  case i of 
+                in  case n of 
                       Even -> cosTH2
                       Odd  -> cosTH1
 
