@@ -24,3 +24,4 @@ Exposed-Modules:
                  HEP.Util.Coroutine
                  HEP.Util.GHC.Plugins
                  HEP.Util.Parsing
+                 HEP.Util.Count
