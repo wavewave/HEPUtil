@@ -9,15 +9,11 @@ import DynFlags
 -- import Control.Monad
 import System.FilePath
 
-import Data.List 
-import Data.List.Split
+-- import Data.List 
+-- import Data.List.Split
 
-moduleDirFile :: String -> (String,String)
-moduleDirFile mname = 
-  let splitted = splitOn "." mname
-      moddir  = intercalate "/" (init splitted )
-      modfile = (last splitted) ++ ".hs" 
-  in  (moddir, modfile)
+import HEP.Util.File 
+
 
 pluginCompile :: FilePath -> String -> String -> IO (Either String HValue)
 pluginCompile basedir mname exp =  
