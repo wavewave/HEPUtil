@@ -1,5 +1,5 @@
 Name:		HEPUtil
-Version:	0.1.2.999
+Version:	0.1.3
 Synopsis:	Useful functions for HEP
 Description: 	Collection of useful functions for High Energy Physics project   
 License: 	BSD3
@@ -7,7 +7,7 @@ License-file:	LICENSE
 Author:		Ian-Woo Kim
 Maintainer: 	Ian-Woo Kim <ianwookim@gmail.com>
 Build-Depends:	base>4, iteratee>0.4, iteratee-util, mtl >2, LHCOAnalysis>=0.4.4, hmatrixIW, 
-                ghc, ghc-paths, filepath, split, parsec, transformers > 0.2.2
+                ghc, ghc-paths, filepath, split, parsec, transformers > 0.2.2, template-haskell
 -- , transformers
 -- hmatrix > 0.11,
 Build-Type: 	Simple
@@ -26,3 +26,4 @@ Exposed-Modules:
                  HEP.Util.Parsing
                  HEP.Util.Count
                  HEP.Util.File
+                 HEP.Util.QQ.Verbatim
