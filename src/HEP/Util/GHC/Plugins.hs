@@ -17,7 +17,7 @@ import HEP.Util.File
 
 pluginCompile :: FilePath -> String -> String -> IO (Either String HValue)
 pluginCompile basedir mname exp =  
-  defaultErrorHandler defaultDynFlags $ do 
+  defaultErrorHandler {- defaultDynFlags -} defaultLogAction $ do 
     let (mdir,mfile) = moduleDirFile mname 
         fp = basedir </> mdir </> mfile
     f <- runGhc (Just libdir) $ do 
@@ -33,7 +33,7 @@ pluginCompile basedir mname exp =
         Succeeded -> do 
           -- putStrLn "Compilation Successed"
           m <- findModule (mkModuleName mname) Nothing
-          setContext [] [(m,Nothing)]
+          setContext [IIModule m] -- ([] :: [InteractiveImport]) [(m,Nothing)]
           value <- compileExpr exp 
           return (Right value)          
     return f
