@@ -21,8 +21,9 @@ ghc-options: 	-Wall -O2 -threaded -funbox-strict-fields -fno-warn-unused-do-bind
 ghc-prof-options: -caf-all -auto-all
 
 Exposed-Modules: 
-		 HEP.Util.Functions
 		 HEP.Util.Combinatorics
+                 HEP.Util.Formatter.Fortran
+		 HEP.Util.Functions
 		 HEP.Util.Printf
                  HEP.Util.Coroutine
                  HEP.Util.Parsing
