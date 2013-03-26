@@ -12,6 +12,7 @@ Build-Depends:	base>4,
                 filepath, 
                 split, 
                 parsec, 
+                either, 
                 transformers > 0.2.2, template-haskell, 
                 hmatrix >= 0.12.0.2
 Build-Type: 	Simple
@@ -22,11 +23,12 @@ ghc-prof-options: -caf-all -auto-all
 
 Exposed-Modules: 
 		 HEP.Util.Combinatorics
+                 HEP.Util.Coroutine
+                 HEP.Util.Count
+                 HEP.Util.Either
+                 HEP.Util.File
                  HEP.Util.Formatter.Fortran
 		 HEP.Util.Functions
 		 HEP.Util.Printf
-                 HEP.Util.Coroutine
                  HEP.Util.Parsing
-                 HEP.Util.Count
-                 HEP.Util.File
                  HEP.Util.QQ.Verbatim
