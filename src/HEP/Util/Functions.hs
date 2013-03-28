@@ -111,8 +111,12 @@ mom_2_pt_eta_phi :: FourMomentum -> (Double,Double,Double)
 mom_2_pt_eta_phi (_,!x,!y,!z) = 
   let pt = sqrt $ x^(2::Int) + y^(2::Int)
       costh = z / ( sqrt $ x^(2::Int) + y^(2::Int) + z^(2::Int) )
-      phi = atan $ y / x 
-  in (pt, costhtoeta costh, phi ) 
+      phi' = atan $ y / x 
+      phi'' | x > 0 = phi'  
+            | otherwise = phi' + pi 
+      phi''' | phi'' < 0  = phi'' + 2.0 * pi
+             | otherwise = phi'' 
+  in (pt, costhtoeta costh, phi''' ) 
 
 deltaR :: (Double,Double,Double) -> (Double,Double,Double) -> Double
 deltaR (_,!eta1,!phi1) (_,!eta2,!phi2) = sqrt $ (eta1-eta2)^(2::Int) + (phi1-phi2)^(2::Int) 
