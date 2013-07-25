@@ -21,7 +21,7 @@ import Control.Monad.Trans.Either
 import Data.Maybe 
 
 guardEither :: (Monad m) => String -> Bool -> EitherT String m () 
-guardEither str b = when b $ EitherT (return (Left str))
+guardEither str b = when (not b) $ EitherT (return (Left str))
                     
 guardEitherM :: (Monad m) => String -> m Bool -> EitherT String m () 
 guardEitherM str act = lift act >>= guardEither str    
