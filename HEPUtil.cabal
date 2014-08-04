@@ -7,14 +7,19 @@ License-file:	LICENSE
 Author:		Ian-Woo Kim
 Maintainer: 	Ian-Woo Kim <ianwookim@gmail.com>
 Build-Depends:	base>4, 
-                mtl >2, 
-                LHCOAnalysis-type,  
-                filepath, 
-                split, 
-                parsec, 
+                -- 
                 either, 
-                transformers > 0.2.2, template-haskell, 
-                hmatrix >= 0.12.0.2
+                filepath,
+                ghc, 
+                ghc-paths, 
+                hmatrix >= 0.12,
+                LHCOAnalysis-type,  
+                mtl >2, 
+                parsec, 
+                split, 
+                template-haskell, 
+                transformers > 0.2.2 
+ 
 Build-Type: 	Simple
 
 hs-source-dirs: src
@@ -29,6 +34,7 @@ Exposed-Modules:
                  HEP.Util.File
                  HEP.Util.Formatter.Fortran
 		 HEP.Util.Functions
+                 HEP.Util.GHC.Plugins
 		 HEP.Util.Printf
                  HEP.Util.Parsing
                  HEP.Util.QQ.Verbatim
