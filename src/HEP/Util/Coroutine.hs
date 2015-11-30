@@ -17,6 +17,10 @@ import Control.Monad.Trans
 
 data Result i o m a = Yield o (i -> CoroutineT i o m a) | Result a
 
+instance (Monad m) => Functor (Result i o m) where
+  fmap f (Yield o c) = Yield o (\i -> f <$> c i)
+  fmap f (Result x) = Result (f x)
+
 -- | Co-routine monad transformer
 --
 --   * i = input value returned by yield
@@ -32,6 +36,16 @@ data CoroutineT i o m a = CoroutineT {
 
 instance Monad m => Functor (CoroutineT i o m) where
     fmap = liftM
+
+instance Monad m => Applicative (CoroutineT i o m) where
+    pure = CoroutineT . return . Result 
+    (CoroutineT mf) <*> cx@(CoroutineT mx) = 
+      CoroutineT $ do
+        rf <- mf
+        rx <- mx
+        case rf of
+         Yield o c -> return $ Yield o (\i -> c i >>= \f -> f <$> cx)
+         Result f -> return (f <$> rx)
 
 instance Monad m => Monad (CoroutineT i o m) where
     return a = CoroutineT $ return $ Result a
